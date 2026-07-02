@@ -6,7 +6,24 @@ import (
 )
 
 func Generate(s string, banner map[rune][]string) (string, error) {
+	var res strings.Builder
+	text := strings.ReplaceAll(s, "\r\n", "\n")
+	words := strings.Split(text, "\n")
 
+	for i, r := range words {
+		if r == "" {
+			if i < len(words)-1 {
+				res.WriteString("\n")
+			}
+		} else {
+			n, err := Render(s, banner)
+			if err != nil {
+				return "", err
+			}
+			res.WriteString(n)
+		}
+	}
+	return res.String(), nil
 }
 func Render(s string, banner map[rune][]string) (string, error) {
 	var res strings.Builder
