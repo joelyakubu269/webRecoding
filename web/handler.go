@@ -34,5 +34,6 @@ func asciiHandler(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, "method not allowed", http.StatusMethodNotAllowed)
 		return
 	}
-
+	text := r.FormValue("text")
+	banner := r.FormValue("banner")
 }
