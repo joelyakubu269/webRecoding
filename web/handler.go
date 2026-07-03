@@ -36,4 +36,9 @@ func asciiHandler(w http.ResponseWriter, r *http.Request) {
 	}
 	text := r.FormValue("text")
 	banner := r.FormValue("banner")
+	m, err := LoadBnner(banner)
+	if err != nil {
+		http.Error(w, "banner not found", http.StatusNotFound)
+		return
+	}
 }
