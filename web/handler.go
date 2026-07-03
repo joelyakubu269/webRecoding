@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"html/template"
 	"net/http"
 )
@@ -43,6 +44,7 @@ func asciiHandler(w http.ResponseWriter, r *http.Request) {
 	m, err := LoadBnner(banner)
 	if err != nil {
 		http.Error(w, "banner not found", http.StatusNotFound)
+		fmt.Println(err)
 		return
 	}
 	err = validate(text)
@@ -53,6 +55,7 @@ func asciiHandler(w http.ResponseWriter, r *http.Request) {
 	result, err := Generate(text, m)
 	if err != nil {
 		http.Error(w, "internal server error", http.StatusInternalServerError)
+		fmt.Println(err)
 		return
 	}
 	templ.Execute(w, PageData{
@@ -62,7 +65,7 @@ func asciiHandler(w http.ResponseWriter, r *http.Request) {
 	})
 }
 func SwitchHandler(w http.ResponseWriter, r *http.Request) {
-	if r.URL.Path != "/switch-handler" {
+	if r.URL.Path != "/ascii-art-switch" {
 		http.Error(w, "status not found", http.StatusNotFound)
 		return
 	}
@@ -79,6 +82,7 @@ func SwitchHandler(w http.ResponseWriter, r *http.Request) {
 	m, err := LoadBnner(banner)
 	if err != nil {
 		http.Error(w, "banner not found", http.StatusNotFound)
+		fmt.Println(err)
 		return
 	}
 	err = validate(text)

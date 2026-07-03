@@ -16,7 +16,7 @@ func Generate(s string, banner map[rune][]string) (string, error) {
 				res.WriteString("\n")
 			}
 		} else {
-			n, err := Render(s, banner)
+			n, err := Render(r, banner)
 			if err != nil {
 				return "", err
 			}
@@ -34,6 +34,7 @@ func Render(s string, banner map[rune][]string) (string, error) {
 			if ok {
 				res.WriteString(val[i])
 			} else {
+				fmt.Println(string(ch))
 				return "", fmt.Errorf("character not found")
 			}
 
