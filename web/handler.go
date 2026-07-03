@@ -66,4 +66,8 @@ func SwitchHandler(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, "status not found", http.StatusNotFound)
 		return
 	}
+	if r.Method != http.MethodGet {
+		http.Error(w, "method not allowed", http.StatusMethodNotAllowed)
+		return
+	}
 }
